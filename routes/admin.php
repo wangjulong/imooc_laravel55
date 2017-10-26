@@ -12,12 +12,18 @@ Route::group(['prefix' => 'admin'], function(){
     Route::group(['middleware' => 'auth:admin'], function (){
         // 后台首页
         Route::get('/home', '\App\Http\Controllers\Admin\HomeController@index');
+
         // 管理员列表
         Route::get('/users', '\App\Http\Controllers\Admin\UserController@index');
         // 创建管理员
         Route::get('/users/create', '\App\Http\Controllers\Admin\UserController@create');
         // 创建逻辑
         Route::post('/users/store', '\App\Http\Controllers\Admin\UserController@store');
+
+        // 审核模块
+        Route::get('/posts', '\App\Http\Controllers\Admin\PostController@index');
+        // 审核逻辑
+        Route::post('/posts/{post}/status', '\App\Http\Controllers\Admin\PostController@status');
     });
 });
 

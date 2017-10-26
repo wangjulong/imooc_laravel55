@@ -68,4 +68,15 @@ class Post extends Model
         });
     }
 
+    // 全局scope的方式
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('avaiable', function (Builder $builder){
+            $builder->whereIn('status', [0, 1]);
+        });
+
+    }
+
 }
