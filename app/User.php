@@ -2,14 +2,11 @@
 
 namespace App;
 
-use App\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    protected $fillable = [
-        'name', 'email', 'password'
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
     // 用户文章列表
     public function posts()

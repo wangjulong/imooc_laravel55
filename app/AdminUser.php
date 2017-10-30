@@ -8,7 +8,7 @@ class AdminUser extends Authenticatable
 {
     protected $rememberTokenName = '';
 
-    protected $fillable = ['name', 'password'];
+    protected $guarded = [];
 
     // 用户有哪些角色
     public function roles()
@@ -16,7 +16,7 @@ class AdminUser extends Authenticatable
         return $this->belongsToMany(\App\AdminRole::class, 'admin_role_user', 'user_id', 'role_id')->withPivot(['user_id', 'role_id']);
     }
 
-    // 判断某个角色，某些角色
+    // 判断是否有某个角色，某些角色
     public function isInRoles($roles)
     {
         return !!$roles->intersect($this->roles)->count();
@@ -37,6 +37,6 @@ class AdminUser extends Authenticatable
     // 用户是否有权限
     public function hasPermission($permission)
     {
-        return $this->isInRoles($permission);
+        return $this->isInRoles($permission->roles);
     }
 }
