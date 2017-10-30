@@ -10,10 +10,89 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-10-26 16:59:10
+Date: 2017-10-30 17:34:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for admin_permissions
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_permissions`;
+CREATE TABLE `admin_permissions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of admin_permissions
+-- ----------------------------
+INSERT INTO `admin_permissions` VALUES ('1', 'system', '系统管理', '2017-10-30 11:45:28', '2017-10-30 11:45:28');
+INSERT INTO `admin_permissions` VALUES ('2', 'post', '文章管理', '2017-10-30 11:46:05', '2017-10-30 11:46:05');
+INSERT INTO `admin_permissions` VALUES ('3', 'topic', '专题管理', '2017-10-30 11:46:22', '2017-10-30 11:46:22');
+INSERT INTO `admin_permissions` VALUES ('4', 'notice', '通知管理', '2017-10-30 11:46:39', '2017-10-30 11:46:39');
+
+-- ----------------------------
+-- Table structure for admin_permission_role
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_permission_role`;
+CREATE TABLE `admin_permission_role` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of admin_permission_role
+-- ----------------------------
+INSERT INTO `admin_permission_role` VALUES ('20', '1', '2', null, null);
+INSERT INTO `admin_permission_role` VALUES ('23', '1', '1', null, null);
+INSERT INTO `admin_permission_role` VALUES ('24', '1', '3', null, null);
+INSERT INTO `admin_permission_role` VALUES ('25', '1', '4', null, null);
+INSERT INTO `admin_permission_role` VALUES ('26', '2', '2', null, null);
+
+-- ----------------------------
+-- Table structure for admin_roles
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_roles`;
+CREATE TABLE `admin_roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of admin_roles
+-- ----------------------------
+INSERT INTO `admin_roles` VALUES ('1', 'sys-manager', '系统管理员', '2017-10-30 11:50:11', '2017-10-30 11:50:11');
+INSERT INTO `admin_roles` VALUES ('2', 'post-manager', '文章管理员', '2017-10-30 14:30:36', '2017-10-30 14:30:36');
+
+-- ----------------------------
+-- Table structure for admin_role_user
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_role_user`;
+CREATE TABLE `admin_role_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of admin_role_user
+-- ----------------------------
+INSERT INTO `admin_role_user` VALUES ('1', '1', '1');
+INSERT INTO `admin_role_user` VALUES ('2', '2', '2');
 
 -- ----------------------------
 -- Table structure for admin_users
@@ -81,7 +160,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of migrations
@@ -96,6 +175,7 @@ INSERT INTO `migrations` VALUES ('7', '2017_10_18_112146_create_topics_table', '
 INSERT INTO `migrations` VALUES ('8', '2017_10_18_113025_create_post_topics_table', '6');
 INSERT INTO `migrations` VALUES ('9', '2017_10_20_134632_create_admin_users_table', '7');
 INSERT INTO `migrations` VALUES ('10', '2017_10_26_150316_alter_posts_table', '8');
+INSERT INTO `migrations` VALUES ('11', '2017_10_27_103803_create_permission_and_roles', '9');
 
 -- ----------------------------
 -- Table structure for password_resets
