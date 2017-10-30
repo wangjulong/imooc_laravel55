@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AdminRole;
 use App\AdminUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,5 +36,38 @@ class UserController extends Controller
         AdminUser::create(compact('name', 'password'));
 
         return redirect('/admin/users');
+    }
+
+    // 用户角色页面
+    public function role(AdminUser $user)
+    {
+        $roles = AdminRole::all();
+        $myRoles = $user->roles;
+        return view('admin/user/role', compact('roles', 'myRoles', 'user'));
+    }
+
+    // 储存角色角色
+    public function storeRole(AdminUser $user)
+    {
+        $this->validate(request(), [
+            'roles' => 'required|array'
+        ]);
+
+        $roles = AdminRole::findMany(request('roles'));
+        $myRoles = $user->roles;
+
+        // 要增加的
+        $addRoles = $roles->diff($myRoles);
+        foreach ($addRoles as $role){
+            $user->assignRole($role);
+        }
+
+        // 要删除的
+        $delRoles = $myRoles->diff($roles);
+        foreach ($delRoles as $role){
+            $user->deleteRole($role);
+        }
+
+        return back();
     }
 }
