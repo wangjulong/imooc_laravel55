@@ -21,10 +21,14 @@
 
                 <p>{!! $post->content !!}</p>
                 <div>
-                    @if($post->zan(\Auth::id())->exists())
-                        <a href="/posts/{{ $post->id }}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
+                    @if(\Auth::check())
+                        @if($post->zan(\Auth::id())->exists())
+                            <a href="/posts/{{ $post->id }}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
+                        @else
+                            <a href="/posts/{{ $post->id }}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                        @endif
                     @else
-                        <a href="/posts/{{ $post->id }}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                        <a href="/login" type="button" class="btn btn-primary btn-lg">赞</a>
                     @endif
                 </div>
             </div>
@@ -52,15 +56,21 @@
 
                 <!-- List group -->
                 <ul class="list-group">
-                    <form action="/posts/{{ $post->id }}/comment" method="post">
-                        {{ csrf_field() }}
+                    @if(\Auth::check())
+                        <form action="/posts/{{ $post->id }}/comment" method="post">
+                            {{ csrf_field() }}
+                            <li class="list-group-item">
+                                <textarea name="content" class="form-control" rows="10"></textarea>
+                                @include('layout.error')
+                                <button class="btn btn-default" type="submit">提交</button>
+                            </li>
+                        </form>
+                    @else
                         <li class="list-group-item">
-                            <textarea name="content" class="form-control" rows="10"></textarea>
-                            @include('layout.error')
+                            <textarea name="content" class="form-control" rows="10" readonly="readonly" placeholder="请先登录！"></textarea>
                             <button class="btn btn-default" type="submit">提交</button>
                         </li>
-                    </form>
-
+                    @endif
                 </ul>
             </div>
 

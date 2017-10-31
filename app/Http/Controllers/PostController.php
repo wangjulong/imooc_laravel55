@@ -44,7 +44,7 @@ class PostController extends Controller
         $post = Post::create($params);
 
         // 渲染页面
-        return redirect("/posts");
+        return redirect("/");
     }
 
     // 编辑文章
@@ -80,7 +80,7 @@ class PostController extends Controller
         $post->delete();
 
         // 渲染页面
-        return redirect("/posts");
+        return redirect("/");
     }
 
     // 上传图片

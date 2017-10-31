@@ -5,7 +5,9 @@
             <blockquote>
                 <p>{{ $topics->name }}</p>
                 <footer>文章：{{ $topics->post_topics_count }}</footer>
-                <button class="btn btn-default topic-submit"  data-toggle="modal" data-target="#topic_submit_modal" topic-id="{{ $topics->id }}" type="button">投稿</button>
+                @if(\Auth::check())
+                    <button class="btn btn-default topic-submit"  data-toggle="modal" data-target="#topic_submit_modal" topic-id="{{ $topics->id }}" type="button">投稿</button>
+                @endif
             </blockquote>
         </div>
         <div class="modal fade" id="topic_submit_modal" tabindex="-1" role="dialog" >

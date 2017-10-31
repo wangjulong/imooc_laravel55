@@ -22,9 +22,10 @@ Route::post('/login', '\App\Http\Controllers\LoginController@login');
 // 登出行为
 Route::get('/logout', '\App\Http\Controllers\LoginController@logout');
 
+// 文章首页
+Route::get('/', '\App\Http\Controllers\PostController@index');
+
 Route::group(['prefix' => 'posts'], function(){
-    // 文章列表
-    Route::get('/', '\App\Http\Controllers\PostController@index');
     // 创建文章
     Route::get('/create', '\App\Http\Controllers\PostController@create');
     Route::post('/', '\App\Http\Controllers\PostController@store');
@@ -36,7 +37,7 @@ Route::group(['prefix' => 'posts'], function(){
     Route::get('/{post}/edit', '\App\Http\Controllers\PostController@edit');
     Route::put('/{post}', '\App\Http\Controllers\PostController@update');
     // 删除文章
-    Route::get('/posts/{post}/delete', '\App\Http\Controllers\PostController@delete');
+    Route::get('/{post}/delete', '\App\Http\Controllers\PostController@delete');
     // 图片上传
     Route::post('/image/upload', '\App\Http\Controllers\PostController@imageUpload');
     Route::post('/{post}/comment', '\App\Http\Controllers\PostController@comment');
@@ -65,6 +66,9 @@ Route::group(['prefix' => 'topic'], function(){
     // 专题投稿
     Route::post('/{topic}/submit', '\App\Http\Controllers\TopicController@submit');
 });
+
+// 通知
+Route::get('/notices', '\App\Http\Controllers\NoticeController@index');
 
 // 管理后台
 Route::group(['prefix' => 'admin'], function(){
@@ -103,5 +107,17 @@ Route::group(['prefix' => 'admin'], function(){
             Route::get('/posts', '\App\Http\Controllers\Admin\PostController@index');
             Route::post('/posts/{post}/status', '\App\Http\Controllers\Admin\PostController@status');
         });
+
+        Route::group(['middleware' => 'can:topic'], function (){
+            // 专题管理
+            Route::resource('topics', '\App\Http\Controllers\Admin\TopicController', ['only' => ['index', 'create', 'store', 'destroy']]);
+        });
+
+        Route::group(['middleware' => 'can:notice'], function (){
+            // 专题管理
+            Route::resource('notices', '\App\Http\Controllers\Admin\NoticeController', ['only' => ['index', 'create', 'store']]);
+        });
+
+
     });
 });
