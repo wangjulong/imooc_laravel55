@@ -21,14 +21,10 @@
 
                 <p>{!! $post->content !!}</p>
                 <div>
-                    @if(\Auth::check())
-                        @if($post->zan(\Auth::id())->exists())
-                            <a href="/posts/{{ $post->id }}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
-                        @else
-                            <a href="/posts/{{ $post->id }}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
-                        @endif
+                    @if($post->zan(\Auth::id())->exists())
+                        <a href="/posts/{{ $post->id }}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
                     @else
-                        <a href="/login" type="button" class="btn btn-primary btn-lg">赞</a>
+                        <a href="/posts/{{ $post->id }}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
                     @endif
                 </div>
             </div>

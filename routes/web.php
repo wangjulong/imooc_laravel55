@@ -19,56 +19,57 @@ Route::post('/register', '\App\Http\Controllers\RegisterController@register');
 Route::get('/login', '\App\Http\Controllers\LoginController@index');
 // 登录行为
 Route::post('/login', '\App\Http\Controllers\LoginController@login');
-// 登出行为
-Route::get('/logout', '\App\Http\Controllers\LoginController@logout');
 
 // 文章首页
 Route::get('/', '\App\Http\Controllers\PostController@index');
+// 文章详情
+Route::get('posts/{post}', '\App\Http\Controllers\PostController@show');
+// 文章搜索
+Route::get('posts/search', '\App\Http\Controllers\PostController@search');
+// 专题详情
+Route::get('topic/{topic}', '\App\Http\Controllers\TopicController@show');
 
-Route::group(['prefix' => 'posts'], function(){
-    // 创建文章
-    Route::get('/create', '\App\Http\Controllers\PostController@create');
-    Route::post('/', '\App\Http\Controllers\PostController@store');
-    // 文章搜索
-    Route::get('/search', '\App\Http\Controllers\PostController@search');
-    // 文章详情
-    Route::get('/{post}', '\App\Http\Controllers\PostController@show');
-    // 编辑文章
-    Route::get('/{post}/edit', '\App\Http\Controllers\PostController@edit');
-    Route::put('/{post}', '\App\Http\Controllers\PostController@update');
-    // 删除文章
-    Route::get('/{post}/delete', '\App\Http\Controllers\PostController@delete');
-    // 图片上传
-    Route::post('/image/upload', '\App\Http\Controllers\PostController@imageUpload');
-    Route::post('/{post}/comment', '\App\Http\Controllers\PostController@comment');
-    // 文章点赞
-    Route::get('/{post}/zan', '\App\Http\Controllers\PostController@zan');
-    // 取消点赞
-    Route::get('/{post}/unzan', '\App\Http\Controllers\PostController@unzan');
-});
+Route::group(['middleware' => 'auth:web'], function (){
+    // 登出行为
+    Route::get('/logout', '\App\Http\Controllers\LoginController@logout');
 
-Route::group(['prefix' => 'user'], function(){
-    // 个人设置
-    Route::get('/me/setting', '\App\Http\Controllers\UserController@setting');
-    // 设置行为
-    Route::post('/me/setting', '\App\Http\Controllers\UserController@settingStore');
-    // 个人中心
-    Route::get('/{user}', '\App\Http\Controllers\UserController@show');
-    // 关注用户
-    Route::post('/{user}/fan', '\App\Http\Controllers\UserController@fan');
-    // 取消关注
-    Route::post('/{user}/unfan', '\App\Http\Controllers\UserController@unfan');
-});
+    Route::group(['prefix' => 'posts'], function(){
+        // 创建文章
+        Route::get('/create', '\App\Http\Controllers\PostController@create');
+        Route::post('/', '\App\Http\Controllers\PostController@store');
+        // 编辑文章
+        Route::get('/{post}/edit', '\App\Http\Controllers\PostController@edit');
+        Route::put('/{post}', '\App\Http\Controllers\PostController@update');
+        // 删除文章
+        Route::get('/{post}/delete', '\App\Http\Controllers\PostController@delete');
+        // 图片上传
+        Route::post('/image/upload', '\App\Http\Controllers\PostController@imageUpload');
+        Route::post('/{post}/comment', '\App\Http\Controllers\PostController@comment');
+        // 文章点赞
+        Route::get('/{post}/zan', '\App\Http\Controllers\PostController@zan');
+        // 取消点赞
+        Route::get('/{post}/unzan', '\App\Http\Controllers\PostController@unzan');
+    });
 
-Route::group(['prefix' => 'topic'], function(){
-    // 专题详情
-    Route::get('/{topic}', '\App\Http\Controllers\TopicController@show');
+    Route::group(['prefix' => 'user'], function(){
+        // 个人设置
+        Route::get('/me/setting', '\App\Http\Controllers\UserController@setting');
+        // 设置行为
+        Route::post('/me/setting', '\App\Http\Controllers\UserController@settingStore');
+        // 个人中心
+        Route::get('/{user}', '\App\Http\Controllers\UserController@show');
+        // 关注用户
+        Route::post('/{user}/fan', '\App\Http\Controllers\UserController@fan');
+        // 取消关注
+        Route::post('/{user}/unfan', '\App\Http\Controllers\UserController@unfan');
+    });
+
     // 专题投稿
-    Route::post('/{topic}/submit', '\App\Http\Controllers\TopicController@submit');
-});
+    Route::post('topic/{topic}/submit', '\App\Http\Controllers\TopicController@submit');
 
-// 通知
-Route::get('/notices', '\App\Http\Controllers\NoticeController@index');
+    // 通知
+    Route::get('/notices', '\App\Http\Controllers\NoticeController@index');
+});
 
 // 管理后台
 Route::group(['prefix' => 'admin'], function(){
