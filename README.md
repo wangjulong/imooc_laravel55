@@ -1,2 +1,2 @@
 # laravel55
-laravel5.4快速开发简书
+laravel5.5快速开发简书
