@@ -11,24 +11,6 @@
 |
 */
 
-// 注册模块
-Route::get('/register', '\App\Http\Controllers\RegisterController@index');
-Route::post('/register', '\App\Http\Controllers\RegisterController@register');
-
-// 登录模块
-Route::get('/login', '\App\Http\Controllers\LoginController@index');
-// 登录行为
-Route::post('/login', '\App\Http\Controllers\LoginController@login');
-
-// 文章首页
-Route::get('/', '\App\Http\Controllers\PostController@index');
-// 文章详情
-Route::get('posts/{post}', '\App\Http\Controllers\PostController@show');
-// 文章搜索
-Route::get('posts/search', '\App\Http\Controllers\PostController@search');
-// 专题详情
-Route::get('topic/{topic}', '\App\Http\Controllers\TopicController@show');
-
 Route::group(['middleware' => 'auth:web'], function (){
     // 登出行为
     Route::get('/logout', '\App\Http\Controllers\LoginController@logout');
@@ -56,8 +38,6 @@ Route::group(['middleware' => 'auth:web'], function (){
         Route::get('/me/setting', '\App\Http\Controllers\UserController@setting');
         // 设置行为
         Route::post('/me/setting', '\App\Http\Controllers\UserController@settingStore');
-        // 个人中心
-        Route::get('/{user}', '\App\Http\Controllers\UserController@show');
         // 关注用户
         Route::post('/{user}/fan', '\App\Http\Controllers\UserController@fan');
         // 取消关注
@@ -70,6 +50,26 @@ Route::group(['middleware' => 'auth:web'], function (){
     // 通知
     Route::get('/notices', '\App\Http\Controllers\NoticeController@index');
 });
+
+// 注册模块
+Route::get('/register', '\App\Http\Controllers\RegisterController@index');
+Route::post('/register', '\App\Http\Controllers\RegisterController@register');
+
+// 登录模块
+Route::get('/login', '\App\Http\Controllers\LoginController@index');
+// 登录行为
+Route::post('/login', '\App\Http\Controllers\LoginController@login');
+
+// 文章首页
+Route::get('/', '\App\Http\Controllers\PostController@index');
+// 文章搜索
+Route::get('posts/search', '\App\Http\Controllers\PostController@search');
+// 专题详情
+Route::get('topic/{topic}', '\App\Http\Controllers\TopicController@show');
+// 文章详情
+Route::get('posts/{post}', '\App\Http\Controllers\PostController@show');
+// 个人中心
+Route::get('user/{user}', '\App\Http\Controllers\UserController@show');
 
 // 管理后台
 Route::group(['prefix' => 'admin'], function(){
