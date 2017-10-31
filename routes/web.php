@@ -79,7 +79,7 @@ Route::group(['prefix' => 'admin'], function(){
 
     Route::group(['middleware' => 'auth:admin'], function (){
         // 后台首页
-        Route::get('/home', '\App\Http\Controllers\Admin\HomeController@index');
+        Route::get('/', '\App\Http\Controllers\Admin\HomeController@index');
 
         Route::group(['middleware' => 'can:system'], function (){
             // 管理员模块
@@ -117,7 +117,6 @@ Route::group(['prefix' => 'admin'], function(){
             // 专题管理
             Route::resource('notices', '\App\Http\Controllers\Admin\NoticeController', ['only' => ['index', 'create', 'store']]);
         });
-
 
     });
 });

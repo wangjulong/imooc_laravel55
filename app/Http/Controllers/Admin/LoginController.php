@@ -26,7 +26,7 @@ class LoginController extends Controller
         $user = request(['name', 'password']);
         $is_remember = boolval(request('is_remember'));
         if (\Auth::guard('admin')->attempt($user, $is_remember)){
-            return redirect('admin/home');
+            return redirect('admin/');
         };
 
         // 渲染页面

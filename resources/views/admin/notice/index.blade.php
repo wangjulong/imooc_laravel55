@@ -18,7 +18,7 @@
                             <tbody><tr>
                                 <th style="width: 10px">#</th>
                                 <th>通知名称</th>
-                                <th>操作</th>
+                                <th>内容</th>
                             </tr>
                             @foreach($notices as $notice)
                                 <tr>
