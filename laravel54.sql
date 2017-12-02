@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : 127.0.0.1
 Source Server Version : 50717
 Source Host           : localhost:3306
 Source Database       : laravel54
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-10-31 17:24:31
+Date: 2017-12-02 17:40:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,12 +21,12 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `admin_permissions`;
 CREATE TABLE `admin_permissions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(30) NOT NULL DEFAULT '',
+  `description` varchar(100) NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_permissions
@@ -45,7 +45,7 @@ CREATE TABLE `admin_permission_role` (
   `role_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_permission_role
@@ -62,12 +62,12 @@ INSERT INTO `admin_permission_role` VALUES ('26', '2', '2');
 DROP TABLE IF EXISTS `admin_roles`;
 CREATE TABLE `admin_roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(30) NOT NULL DEFAULT '',
+  `description` varchar(100) NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_roles
@@ -84,7 +84,7 @@ CREATE TABLE `admin_role_user` (
   `role_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_role_user
@@ -143,12 +143,13 @@ CREATE TABLE `fans` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of fans
 -- ----------------------------
-INSERT INTO `fans` VALUES ('11', '1', '2', '2017-10-17 16:57:14', '2017-10-17 16:57:14');
+INSERT INTO `fans` VALUES ('12', '1', '2', '2017-10-31 19:07:44', '2017-10-31 19:07:44');
+INSERT INTO `fans` VALUES ('13', '2', '1', '2017-10-31 19:22:04', '2017-10-31 19:22:04');
 
 -- ----------------------------
 -- Table structure for jobs
@@ -164,7 +165,7 @@ CREATE TABLE `jobs` (
   `created_at` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `jobs_queue_reserved_at_index` (`queue`,`reserved_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of jobs
@@ -176,10 +177,10 @@ CREATE TABLE `jobs` (
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of migrations
@@ -204,12 +205,12 @@ INSERT INTO `migrations` VALUES ('13', '2017_10_31_152014_create_jobs_table', '1
 DROP TABLE IF EXISTS `notices`;
 CREATE TABLE `notices` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `content` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `content` varchar(100) NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of notices
@@ -222,11 +223,11 @@ INSERT INTO `notices` VALUES ('2', '欢迎新朋友', '欢迎加入简书这个�
 -- ----------------------------
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of password_resets
@@ -238,14 +239,14 @@ CREATE TABLE `password_resets` (
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(1000) NOT NULL DEFAULT '',
+  `content` text NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of posts
@@ -292,7 +293,7 @@ CREATE TABLE `post_topics` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of post_topics
@@ -309,11 +310,11 @@ INSERT INTO `post_topics` VALUES ('5', '25', '2', '2017-10-19 12:11:12', '2017-1
 DROP TABLE IF EXISTS `topics`;
 CREATE TABLE `topics` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `name` varchar(30) NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of topics
@@ -327,22 +328,22 @@ INSERT INTO `topics` VALUES ('2', '经典', '2017-10-18 15:08:50', '2017-10-18 1
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'tom', 'tom@qq.com', '$2y$10$Kvw/7jmxSWUjYAAfRPI2MuVJp0AZ8BHLbIq8UWlAB1PzydNXsvJnO', 'QZqYcDi4KYdMU8dHcOe5GGJKp7K7fQIcX5uxHBBr2IPDZmSPZPR8YG0io8OF', '/storage/f4c5afb33459f31438d4391a33ad7672/KJFneMK3yoCHRV9zaCtr4h1xhLvANyZC95n72Mol.jpeg', '2017-09-20 17:15:36', '2017-10-18 09:56:57');
-INSERT INTO `users` VALUES ('2', 'test', 'test@qq.com', '$2y$10$dQ4b6xsyM5yXTiF8CnwWRuvbtqD5Zgp.1wFQQw6Kr4LAp46LrZDye', 'l6ejlZGYaYXuzfTtEMpTIReEi3M0A9Zsw26OV8lIqcpu7IEkc12ypSO5XDku', '/storage/d1361b6754850efadd604b7b27969d1b/qj0rC3BmQBZr2EcOIEpyA8icdAlTch3Vo723t5z4.jpeg', '2017-09-21 11:48:34', '2017-10-31 14:30:49');
+INSERT INTO `users` VALUES ('1', 'tom', 'tom@qq.com', '$2y$10$Kvw/7jmxSWUjYAAfRPI2MuVJp0AZ8BHLbIq8UWlAB1PzydNXsvJnO', 'DfsUfTCqjHkPVw8YUcrvAOHbs15zn2QN6guDMIxj0HKbuHEI80VJScxpTG2M', '/storage/f4c5afb33459f31438d4391a33ad7672/KJFneMK3yoCHRV9zaCtr4h1xhLvANyZC95n72Mol.jpeg', '2017-09-20 17:15:36', '2017-10-18 09:56:57');
+INSERT INTO `users` VALUES ('2', 'test', 'test@qq.com', '$2y$10$dQ4b6xsyM5yXTiF8CnwWRuvbtqD5Zgp.1wFQQw6Kr4LAp46LrZDye', 'QlS8vDj6q7aPAy2E0JazLWBzbsISCIuJsM5KKlbSPakE2BIfNNv9zlCGCQp8', '/storage/d1361b6754850efadd604b7b27969d1b/qj0rC3BmQBZr2EcOIEpyA8icdAlTch3Vo723t5z4.jpeg', '2017-09-21 11:48:34', '2017-10-31 14:30:49');
 
 -- ----------------------------
 -- Table structure for user_notice
@@ -353,7 +354,7 @@ CREATE TABLE `user_notice` (
   `user_id` int(11) NOT NULL DEFAULT '0',
   `notice_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_notice
@@ -372,7 +373,7 @@ CREATE TABLE `zans` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of zans
